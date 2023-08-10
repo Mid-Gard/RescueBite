@@ -1,0 +1,42 @@
+.Dashboard {
+    background-color: rgb(0, 0, 0);
+
+}
+
+.details{
+    color: rgb(26, 17, 17);
+    display: flex;
+    background-color: rgba(236, 213, 111, 0.753);
+    width: 20vw;
+    height: 79vh;
+    margin: 27px;
+    border-radius: 10px;
+    flex-direction: column;
+    padding-left: 30px;
+    overflow: scroll;
+    overflow-x: auto;
+}
+
+.containerr{
+    height: fit-content;
+    background-image: url("../../Assets/background.jpg");
+    background-repeat: round;
+    display: flex;
+    height: -moz-fit-content;
+    align-content: stretch;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.iot{
+    color: white;
+    display: flex;
+    background-color: rgba(255, 0, 0, 0.61);
+    width: 20vw;
+    height: 79vh;
+    padding: 10px;
+    margin: 27px;
+    border-radius: 10px;
+    flex-direction: column;
+        padding-left: 30px;
+}
