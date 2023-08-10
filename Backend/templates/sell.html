@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<!-- form -->
+<div class="container my-3">
+
+    <form class="my-5" action="{{ url_for('sell') }}" method="post">
+        <div class="mb-3">
+            <label for="exampleInput1" class="form-label">Name: </label>
+            <input type="text" class="form-control" id="exampleInput1" name="fname">
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInput2" class="form-label">Task: </label>
+            <input type="text" class="form-control" id="exampleInput2" name="ftask">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <!-- table -->
+    <table class="table my-5 border">
+        <thead>
+            <tr>
+                <th scope="col">Rank</th>
+                <th scope="col">Name</th>
+                <th scope="col">Task</th>
+                <th scope="col">Time</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+
+            {% for todo in allTodo %}
+            <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{todo.name}}</td>
+                <td>{{todo.task}}</td>
+                <td>{{todo.date}}</td>
+                <td>
+                    <a href="/delete/{{todo.id}}" type="button" class="btn btn-info">Delete</a>
+                    <a href="/update/{{todo.id}}" type="button" class="btn btn-info">Update</a>
+                </td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock body %}
