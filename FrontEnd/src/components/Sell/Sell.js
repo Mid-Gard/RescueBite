@@ -12,20 +12,24 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 
 import "./Sell.css";
+import { Link } from "react-router-dom";
 
-function Learn({ title }) {
+function Sell({ title }) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [Learn, setLearn] = useState([]);
-  const [SHOP, setSHOP] = useState([]);
+  // const [Sell, setSell] = useState([]);
+  const [Sell, setSell] = useState([]);
 
   useEffect(() => {
-    const fetchSHOP = async () => {
-      const response = await fetch("http://127.0.0.1:8000/detail/");
+    const fetchSell = async () => {
+      const response = await fetch("http://127.0.0.1:8000/detail");
+      // console.log(response)
+      // const d = fetch("/detail");
+      // console.log(d)
       const data = await response.json();
       console.log(data)
-      setSHOP(data);
+      setSell(data);
     };
-    fetchSHOP();
+    fetchSell();
   }, []);
   
   const handleMenu = (event) => {
@@ -40,19 +44,25 @@ function Learn({ title }) {
   // console.log(response);
 
   return (
-    <div className="SHOPHome">
-      <div className="SHOPcontainer">
+    <div className="SellHome">
+      <div className="Sellcontainer">
         <div className="MainContent">
-          <div className="SHOPHeading">
+          <div className="SellHeading">
             <p> Items in the Kitchen </p>
+              <div className="table-head">
+                <div className="Bus-name bus-element">Item Name</div>
+                <div className="Bus-phone bus-element">Valid Till (Hrs)</div>
+                <div className="Bus-phone bus-element">Catagory</div>
+                <div className="Bus-phone bus-element">Quantity</div>
+              </div>
           </div>
-          <div className="SHOP-container">
-            {SHOP.map((Bus) => (
+          <div className="Sell-container">
+            {Sell.map((Bus) => (
               <div className="Bus-info">
-                <div className="Bus-name">{Bus.item}</div>
-                <div className="Bus-phone">{Bus.validTime}</div>
-                <div className="Bus-phone">{Bus.cat}</div>
-                <div className="Bus-phone">{Bus.weight}</div>
+                <div className="Bus-name bus-element">{Bus.item}</div>
+                <div className="Bus-phone bus-element">{Bus.validTime}</div>
+                <div className="Bus-phone bus-element">{Bus.cat}</div>
+                <div className="Bus-phone bus-element">{Bus.weight}</div>
               </div>
             ))}
           </div>
@@ -63,4 +73,4 @@ function Learn({ title }) {
   );
 }
 
-export default Learn;
+export default Sell;

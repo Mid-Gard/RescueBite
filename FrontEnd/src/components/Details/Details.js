@@ -12,18 +12,19 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 
 import "./Details.css";
+import { Link } from "react-router-dom";
 
-function SHOP({ title }) {
+function Detail({ title }) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [SHOP, setSHOP] = useState([]);
+  const [Detail, setDetail] = useState([]);
 
   useEffect(() => {
-    const fetchSHOP = async () => {
-      const response = await fetch("http://127.0.0.1:8000/driver_details/");
+    const fetchDetail = async () => {
+      const response = await fetch("http://127.0.0.1:8000/detail");
       const data = await response.json();
-      setSHOP(data);
+      setDetail(data);
     };
-    fetchSHOP();
+    fetchDetail();
   }, []);
 
   const handleMenu = (event) => {
@@ -35,26 +36,31 @@ function SHOP({ title }) {
   };
 
   return (
-    <div className="SHOPHome">
-      <div className="SHOPcontainer">
+    <div className="DetailHome">
+      <div className="Detailcontainer">
         <div className="MainContent">
-          <div className="SHOPHeading">
+          <div className="DetailHeading">
             <p> Items in the Kitchen </p>
+          <div className="table-head">
+            <div className="Bus-name bus-element">Item Name</div>
+            <div className="Bus-phone bus-element">Valid Till (Hrs)</div>
+            <div className="Bus-phone bus-element">Catagory</div>
+            <div className="Bus-phone bus-element">Quantity</div>
           </div>
-          <div className="SHOP-container">
-            {SHOP.map((Bus) => (
-              <div className="Bus-card" key={Bus.id}>
-                <div className="Bus-image-container">
-                  <img
-                    className="Bus-image"
-                    src={"https://picsum.photos/seed/${Bus}/200/200"}
-                    alt={`Bus ${Bus.Bus_Name}`}
-                  />
-                </div>
-                <div className="Bus-info">
-                  <div className="Bus-name">{Bus.Bus_Name}</div>
-                  <div className="Bus-phone">{Bus.Bus_Phone}</div>
-                </div>
+          </div>
+          <div className="Detail-container">
+            {Detail.map((Bus) => (
+              <div className="Bus-info">
+                <div className="Bus-name bus-element">{Bus.item}</div>
+                <div className="Bus-phone bus-element">{Bus.validTime}</div>
+                <div className="Bus-phone bus-element">{Bus.cat}</div>
+                <div className="Bus-phone bus-element">{Bus.weight}</div>
+                <Link to="/Sell">
+                  <div className="Detail-btn">Sell</div>
+                </Link>
+                <Link to="/Donate">
+                  <div className="donate-btn">Donate</div>
+                </Link>
               </div>
             ))}
           </div>
@@ -65,4 +71,4 @@ function SHOP({ title }) {
   );
 }
 
-export default SHOP;
+export default Detail;

@@ -3,7 +3,10 @@ from flask import Flask, render_template, request, redirect, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 # creating app instance
+from flask_cors import CORS  # Import CORS
+
 app = Flask(__name__)
+CORS(app)  # Add this line to enable CORS
 
 # adding configuration for using a sqlite database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
@@ -42,7 +45,7 @@ def dashboard():
 # details page route
 @app.route('/detail')
 def detail():
-    data = {"status":True,"item":"chiken","validTime":5,"cat":"veg","weight":2}
+    data = [{"status":True,"item":"chiken","validTime":5,"cat":"veg","weight":2},{"status":True,"item":"chiken","validTime":5,"cat":"veg","weight":2}]
     # return render_template('detail.html', title = "details page")
     return jsonify(data)
 
