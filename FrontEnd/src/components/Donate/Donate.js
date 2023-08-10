@@ -13,9 +13,22 @@ import Menu from "@mui/material/Menu";
 
 import "./Donate.css";
 
-function Team({ title }) {
+function Donate({ title }) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [Team, setTeam] = useState([]);
+  const [Donate, setDonate] = useState([]);
+
+  useEffect(() => {
+    const fetchDonate = async () => {
+      const response = await fetch("http://127.0.0.1:8000/detail");
+      // console.log(response)
+      // const d = fetch("/detail");
+      // console.log(d)
+      const data = await response.json();
+      console.log(data);
+      setDonate(data);
+    };
+    fetchDonate();
+  }, []);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -26,19 +39,33 @@ function Team({ title }) {
   };
 
   return (
-    <div className="TeamHome">
-      <div className="Teamcontainer">
+    <div className="DonateHome">
+      <div className="Donatecontainer">
         <div className="MainContent">
-          <div className="TeamHeading">
-            <p>News and Schemes</p>
+          <div className="DonateHeading">
+            <p> Items in the Kitchen </p>
+            <div className="table-head">
+              <div className="Bus-name bus-element">Item Name</div>
+              <div className="Bus-phone bus-element">Valid Till (Hrs)</div>
+              <div className="Bus-phone bus-element">Catagory</div>
+              <div className="Bus-phone bus-element">Quantity</div>
+            </div>
           </div>
-          <div className="Team-container">
+          <div className="Donate-container">
+            {Donate.map((Bus) => (
+              <div className="Bus-info">
+                <div className="Bus-name bus-element">{Bus.item}</div>
+                <div className="Bus-phone bus-element">{Bus.validTime}</div>
+                <div className="Bus-phone bus-element">{Bus.cat}</div>
+                <div className="Bus-phone bus-element">{Bus.weight}</div>
+              </div>
+            ))}
           </div>
         </div>
-        <div className="Teamidebar"></div>
+        <div className="BusSidebar"></div>
       </div>
     </div>
   );
 }
 
-export default Team;
+export default Donate;

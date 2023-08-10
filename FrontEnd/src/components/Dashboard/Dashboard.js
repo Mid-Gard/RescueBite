@@ -4,7 +4,7 @@ import "./Dashboard.css";
 function Dashboard() {
   return (
     <div className="Dashboard">
-      <div className="containerr">
+      <div className="containerrr">
         <div className="details">
           <h1>Food In Kitchen</h1>
           <h3>Butter Chicken</h3>

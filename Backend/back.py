@@ -5,7 +5,10 @@ from datetime import datetime
 import random
 
 # creating app instance
+from flask_cors import CORS  # Import CORS
+
 app = Flask(__name__)
+CORS(app)  # Add this line to enable CORS
 
 # adding configuration for using a sqlite database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
@@ -48,6 +51,11 @@ def dashboard():
 # details page route
 @app.route('/detail', methods = ['POST', 'GET'])
 def detail():
+<<<<<<< HEAD
+    data = [{"status":True,"item":"chiken","validTime":5,"cat":"veg","weight":2},{"status":True,"item":"chiken","validTime":5,"cat":"veg","weight":2}]
+    # return render_template('detail.html', title = "details page")
+    return jsonify(data)
+=======
 
     if request.method == 'POST':
 
@@ -85,6 +93,7 @@ def detail():
 
 
     return render_template('detail.html', title = "details page", allTodo = allTodo)
+>>>>>>> 71d49d1349c787b83bf1c4ccdb51336212e69e57
 
 
 # SELL PAGE ROUTES
