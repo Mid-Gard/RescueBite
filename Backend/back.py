@@ -51,11 +51,6 @@ def dashboard():
 # details page route
 @app.route('/detail', methods = ['POST', 'GET'])
 def detail():
-<<<<<<< HEAD
-    data = [{"status":True,"item":"chiken","validTime":5,"cat":"veg","weight":2},{"status":True,"item":"chiken","validTime":5,"cat":"veg","weight":2}]
-    # return render_template('detail.html', title = "details page")
-    return jsonify(data)
-=======
 
     if request.method == 'POST':
 
@@ -69,31 +64,35 @@ def detail():
         db.session.add(todo)
         db.session.commit()
 
-
+# for logic
     allTodo = Todo.query.all()
-    if request.accept_mimetypes.best == 'application/json':
-        todo_list = [{
-            "id": item.id,
-            "name": item.name,
-            "task": item.task,
-            "creation time": item.ctime,
-            "cat": item.cat,
-            "shelf_life": item.shelf_life,
-            "note": item.note,
-            "date": item.date.strftime('%Y-%m-%d %H:%M:%S')
-        } for item in allTodo]
-        return jsonify(todo_list)
+    timepassed = datetime.utcnow() - item.ctime
+    validity = item.shelftime - timepassed
+
+
+
+    todo_list = [{
+        "id": item.id,
+        "name": item.name,
+        "qty": item.task,
+        "creation time": item.ctime,
+        "validity" : validity,
+        "cat": item.cat,
+        "shelf_life": item.shelf_life,
+        "note": item.note,
+        "date": item.date.strftime('%Y-%m-%d %H:%M:%S')
+    } for item in allTodo]
+    return jsonify(todo_list)
 
      # Check if the client accepts JSON response
-    if request.accept_mimetypes.best == 'application/json':
-        todo_list = [{"id": item.id, "name": item.name, "task": item.task,
-                      "cat": item.cat, "note": item.note, "date": item.date.strftime('%Y-%m-%d %H:%M:%S')}
-                     for item in allTodo]
-        return jsonify(todo_list)
+    # if request.accept_mimetypes.best == 'application/json':
+    #     todo_list = [{"id": item.id, "name": item.name, "task": item.task,
+    #                   "cat": item.cat, "note": item.note, "date": item.date.strftime('%Y-%m-%d %H:%M:%S')}
+    #                  for item in allTodo]
+    #     return jsonify(todo_list)
 
 
-    return render_template('detail.html', title = "details page", allTodo = allTodo)
->>>>>>> 71d49d1349c787b83bf1c4ccdb51336212e69e57
+    # return render_template('detail.html', title = "details page", allTodo = allTodo)
 
 
 # SELL PAGE ROUTES
