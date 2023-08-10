@@ -27,7 +27,7 @@ function Dashboard() {
         </div>
         <div className="buttons">
           <div className="Sell">Sell</div>
-          <div className="Sell">Donate</div>
+          <div className="Donate">Donate</div>
         </div>
       </div>
       <div className="containerr">
