@@ -2,6 +2,64 @@
 
 {% block body %}
 
-<h1>detail page</h1>
+<!-- table -->
+<div class="container">
+    <table class="table my-5 border">
+        <thead>
+            <tr>
+                <th scope="col">Rank</th>
+                <th scope="col">Item Name</th>
+                <th scope="col">Quantity(in Kgs)</th>
+                <th scope="col">Category</th>
+                <th scope="col">Creation Time</th>
+                <th scope="col">Shelf Life(in hrs)</th>
+                <th scope="col">Note</th>
+                <th scope="col">Time</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+
+            {% for todo in allTodo %}
+            <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{todo.name}}</td>
+                <td>{{todo.task}}</td>
+                <td>{{todo.cat}}</td>
+                <td>{{todo.ctime}}</td>
+                <td>{{todo.shelf_life}}</td>
+                <td>{{todo.note}}</td>
+                <td>{{todo.date}}</td>
+                <td>
+                    <a href="/delete/{{todo.id}}" type="button" class="btn btn-info">Delete</a>
+                    <a href="/update/{{todo.id}}" type="button" class="btn btn-info">Update</a>
+                </td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    <h2>JSON Data</h2>
+    <pre id="json-data"></pre>
+</div>
+
+{% block scripts %}
+<script>
+    function fetchJSONData() {
+        fetch('/detail', {
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const jsonData = JSON.stringify(data, null, 2);
+            document.getElementById('json-data').textContent = jsonData;
+        });
+    }
+
+    window.onload = fetchJSONData;
+</script>
+{% endblock scripts %}
+
 
 {% endblock body %}

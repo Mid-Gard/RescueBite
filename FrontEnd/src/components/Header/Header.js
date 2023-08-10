@@ -59,7 +59,7 @@ function Header({ title }) {
             <div className="nav-item">
               <Typography variant="h6" component="div">
                 <Link to="/Details" className="nav-link">
-                  Details
+                  Kitchen
                 </Link>
               </Typography>
             </div>
