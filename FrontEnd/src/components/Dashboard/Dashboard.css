@@ -17,6 +17,21 @@
     overflow-x: auto;
 }
 
+.buttons{
+    display: flex;
+    padding: 10px;
+    margin: 10px;
+    height: -moz-fit-content;
+    height: fit-content;
+    margin-right: auto;
+    margin-left: 40vw;
+    font-size: 2em;
+    margin-top: 40vh;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+
+}
+
 .containerr{
     height: fit-content;
     background-image: url("../../Assets/background.jpg");
@@ -31,12 +46,36 @@
 .iot{
     color: white;
     display: flex;
-    background-color: rgba(255, 0, 0, 0.61);
+    background-color: rgba(63, 25, 25, 0.356);
     width: 20vw;
     height: 79vh;
     padding: 10px;
     margin: 27px;
     border-radius: 10px;
     flex-direction: column;
-        padding-left: 30px;
+    padding-left: 30px;
+}
+
+.Sell{
+    padding: 10px;
+    margin-inline: 26px;
+    background-color: green;
+    padding-inline: 35px;
+    border-radius: 13px;
+}
+
+.Donate{
+    padding: 10px;
+    margin-inline: 26px;
+    background-color: green;
+    padding-inline: 35px;
+    border-radius: 13px;
+
+}
+
+h3{
+    background: blue;
+    padding: 5px;
+    border-radius: 7px;
+    color: aliceblue;
 }

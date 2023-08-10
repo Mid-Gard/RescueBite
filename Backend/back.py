@@ -2,7 +2,7 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-
+import random
 
 # creating app instance
 app = Flask(__name__)
@@ -20,8 +20,10 @@ class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), unique=False, nullable=False)
     task = db.Column(db.Integer, unique=False, nullable=False)
+    ctime = db.Column(db.String(20), unique=False, nullable=False)
     cat = db.Column(db.String(100), unique=False, nullable=False)
     note = db.Column(db.String(100), unique=False, nullable=False)
+    shelf_life = db.Column(db.Integer, unique=False, nullable=False)
     date = db.Column(db.DateTime, default = datetime.utcnow)
  
     # repr method represents how one object of this datatable
@@ -53,13 +55,26 @@ def detail():
         ftask = request.form['ftask']
         fnote = request.form['fnote']
         fcat = request.form['fcat']
+        ftime = request.form['ftime']
 
-        todo = Todo(name = fname, task = ftask, cat = fcat ,note = fnote)
+        todo = Todo(name = fname, task = ftask, cat = fcat ,note = fnote, shelf_life = random.randrange(2, 5), ctime = ftime)
         db.session.add(todo)
         db.session.commit()
 
 
     allTodo = Todo.query.all()
+    if request.accept_mimetypes.best == 'application/json':
+        todo_list = [{
+            "id": item.id,
+            "name": item.name,
+            "task": item.task,
+            "creation time": item.ctime,
+            "cat": item.cat,
+            "shelf_life": item.shelf_life,
+            "note": item.note,
+            "date": item.date.strftime('%Y-%m-%d %H:%M:%S')
+        } for item in allTodo]
+        return jsonify(todo_list)
 
      # Check if the client accepts JSON response
     if request.accept_mimetypes.best == 'application/json':
