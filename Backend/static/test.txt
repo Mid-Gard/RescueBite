@@ -1,0 +1,121 @@
+To return JSON data to the `detail` page in your Flask application, you can modify your existing `detail` route function to handle both HTML and JSON responses. This way, you can render the HTML template when the client requests the page via a web browser, and return JSON data when the client requests the data in JSON format. Here's how you can achieve this:
+
+1. Import the necessary modules at the beginning of your script:
+
+```python
+from flask import jsonify
+```
+
+2. Modify your `detail` route function to handle both HTML and JSON responses:
+
+```python
+@app.route('/detail', methods=['POST', 'GET'])
+def detail():
+    if request.method == 'POST':
+        fname = request.form['fname']
+        ftask = request.form['ftask']
+        fnote = request.form['fnote']
+        fcat = request.form['fcat']
+
+        todo = Todo(name=fname, task=ftask, cat=fcat, note=fnote)
+        db.session.add(todo)
+        db.session.commit()
+
+    allTodo = Todo.query.all()
+
+    # Check if the client accepts JSON response
+    if request.accept_mimetypes.best == 'application/json':
+        todo_list = [{"id": item.id, "name": item.name, "task": item.task,
+                      "cat": item.cat, "note": item.note, "date": item.date.strftime('%Y-%m-%d %H:%M:%S')}
+                     for item in allTodo]
+        return jsonify(todo_list)
+
+    return render_template('detail.html', title="details page", allTodo=allTodo)
+```
+
+In this modified function, when a client accesses the `/detail` route, the function first checks if the client accepts JSON response (`request.accept_mimetypes.best == 'application/json'`). If the client accepts JSON, the function creates a list of dictionaries containing the task information and returns it as JSON using the `jsonify` function. If the client doesn't accept JSON or if the request is not AJAX, the function renders the HTML template with the `allTodo` data.
+
+With this setup, you can access the `/detail` route and get the task data in JSON format by setting the appropriate headers in your request. For example, you can use JavaScript on your frontend to make an AJAX request to this route with the `Accept: application/json` header to receive the JSON data.
+
+Remember to adjust your frontend code accordingly to handle the JSON response and update the UI with the returned data.
+
+
+Sure! Here's how you can achieve the same functionality without using jQuery and using vanilla JavaScript instead.
+
+Modify your `detail.html` template:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+</head>
+<body>
+    <h1>{{ title }}</h1>
+
+    <!-- Button to fetch and display JSON data -->
+    <button id="fetchData">Fetch Data</button>
+
+    <!-- Table to display task data -->
+    <table id="taskTable" border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Task</th>
+                <th>Category</th>
+                <th>Note</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Task data will be inserted here -->
+        </tbody>
+    </table>
+
+    <script>
+        // Function to fetch and display JSON data
+        function fetchAndDisplayData() {
+            fetch('/detail', {
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                var tableBody = document.querySelector("#taskTable tbody");
+                tableBody.innerHTML = "";
+                data.forEach(task => {
+                    var row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${task.id}</td>
+                        <td>${task.name}</td>
+                        <td>${task.task}</td>
+                        <td>${task.cat}</td>
+                        <td>${task.note}</td>
+                        <td>${task.date}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+        }
+
+        // Attach click event to the Fetch Data button
+        var fetchDataButton = document.getElementById("fetchData");
+        fetchDataButton.addEventListener("click", fetchAndDisplayData);
+
+        // Fetch and display data when the page loads
+        fetchAndDisplayData();
+    </script>
+</body>
+</html>
+```
+
+In this version of the `detail.html` template, we have removed the jQuery dependency and used plain JavaScript to fetch the JSON data and populate the table.
+
+The `fetchAndDisplayData` function now uses the `fetch` API to make the AJAX request. It then processes the JSON response and dynamically adds rows to the table, just like in the previous example.
+
+This version of the code achieves the same functionality as before but without using jQuery. It's important to note that the `fetch` API is widely supported in modern browsers, but if you need to support older browsers, you might need to use a polyfill or consider using a library like Axios.
