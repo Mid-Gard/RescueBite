@@ -1,8 +1,7 @@
 # importing libraries
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-
 # creating app instance
 app = Flask(__name__)
 
@@ -43,7 +42,9 @@ def dashboard():
 # details page route
 @app.route('/detail')
 def detail():
-    return render_template('detail.html', title = "details page")
+    data = {"status":True,"item":"chiken","validTime":5,"cat":"veg","weight":2}
+    # return render_template('detail.html', title = "details page")
+    return jsonify(data)
 
 
 # SELL PAGE ROUTES

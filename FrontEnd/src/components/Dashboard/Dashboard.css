@@ -72,3 +72,10 @@
     border-radius: 13px;
 
 }
+
+h3{
+    background: blue;
+    padding: 5px;
+    border-radius: 7px;
+    color: aliceblue;
+}

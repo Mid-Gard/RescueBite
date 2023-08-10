@@ -39,7 +39,7 @@ function SHOP({ title }) {
       <div className="SHOPcontainer">
         <div className="MainContent">
           <div className="SHOPHeading">
-            <p> Sale Your Commodity</p>
+            <p> Items in the Kitchen </p>
           </div>
           <div className="SHOP-container">
             {SHOP.map((Bus) => (
