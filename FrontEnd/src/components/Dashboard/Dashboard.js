@@ -1,5 +1,6 @@
 import React from "react";
 import "./Dashboard.css";
+import { Link } from "react-router-dom";
 
 function Dashboard() {
   return (
@@ -28,6 +29,9 @@ function Dashboard() {
         <div className="buttons">
           <div className="Sell">Sell</div>
           <div className="Donate">Donate</div>
+          <Link to="http://127.0.0.1:8000/sell">
+            <div className="Donate">Add</div>
+          </Link>
         </div>
       </div>
     </div>

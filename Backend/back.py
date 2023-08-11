@@ -99,8 +99,9 @@ def detail():
         db.session.add(todo)
         db.session.commit()
 
-
+# for logic
     allTodo = Todo.query.all()
+<<<<<<< HEAD
     print(allTodo)
 
     if request.accept_mimetypes.best == 'application/json':
@@ -117,16 +118,39 @@ def detail():
             "date": item.date.strftime('%Y-%m-%d %H:%M:%S')
         } for item in allTodo]
         return jsonify(todo_list)
+=======
+    timepassed = datetime.utcnow() - item.ctime
+    validity = item.shelftime - timepassed
+
+
+
+    todo_list = [{
+        "id": item.id,
+        "name": item.name,
+        "qty": item.task,
+        "creation time": item.ctime,
+        "validity" : validity,
+        "cat": item.cat,
+        "shelf_life": item.shelf_life,
+        "note": item.note,
+        "date": item.date.strftime('%Y-%m-%d %H:%M:%S')
+    } for item in allTodo]
+    return jsonify(todo_list)
+>>>>>>> bbff0fbc1e76a9422594dce4ad5efefcbc8d3bbc
 
      # Check if the client accepts JSON response
-    if request.accept_mimetypes.best == 'application/json':
-        todo_list = [{"id": item.id, "name": item.name, "task": item.task,
-                      "cat": item.cat, "note": item.note, "date": item.date.strftime('%Y-%m-%d %H:%M:%S')}
-                     for item in allTodo]
-        return jsonify(todo_list)
+    # if request.accept_mimetypes.best == 'application/json':
+    #     todo_list = [{"id": item.id, "name": item.name, "task": item.task,
+    #                   "cat": item.cat, "note": item.note, "date": item.date.strftime('%Y-%m-%d %H:%M:%S')}
+    #                  for item in allTodo]
+    #     return jsonify(todo_list)
 
 
+<<<<<<< HEAD
     return render_template('detail.html', title = "details page", allTodo = allTodo)
+=======
+    # return render_template('detail.html', title = "details page", allTodo = allTodo)
+>>>>>>> bbff0fbc1e76a9422594dce4ad5efefcbc8d3bbc
 
 
 # SELL PAGE ROUTES

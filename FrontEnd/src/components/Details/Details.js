@@ -51,7 +51,7 @@ function Detail({ title }) {
           <div className="Detail-container">
             {Detail.map((Bus) => (
               <div className="Bus-info">
-                <div className="Bus-name bus-element">{Bus.item}</div>
+                <div className="Bus-name bus-element">{Bus.name}</div>
                 <div className="Bus-phone bus-element">{Bus.validTime}</div>
                 <div className="Bus-phone bus-element">{Bus.cat}</div>
                 <div className="Bus-phone bus-element">{Bus.weight}</div>
