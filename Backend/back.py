@@ -1,20 +1,30 @@
 # importing libraries
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
+from datetime import datetime, timedelta
 import random
 
 # creating app instance
-from flask_cors import CORS  # Import CORS
-
 app = Flask(__name__)
-CORS(app)  # Add this line to enable CORS
 
 # adding configuration for using a sqlite database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
  
 # Creating an SQLAlchemy instance
 db = SQLAlchemy(app)
+
+# time difference function
+def calculate_time_difference(date_str1, date_utc):
+    try:
+        date_format = "%Y-%d-%m"
+        
+        datetime1 = datetime.strptime(date_str1, date_format)
+        datetime2 = datetime.utcnow()  # Get current UTC datetime
+        
+        time_difference = abs((datetime2 - datetime1).total_seconds())
+        return time_difference
+    except ValueError:
+        return None
 
 # DATABASE MODELS
 
@@ -27,6 +37,9 @@ class Todo(db.Model):
     cat = db.Column(db.String(100), unique=False, nullable=False)
     note = db.Column(db.String(100), unique=False, nullable=False)
     shelf_life = db.Column(db.Integer, unique=False, nullable=False)
+    validity = db.Column(db.Integer, unique=False, nullable=False)
+    expiry = db.Column(db.Integer, unique=False, nullable=False) 
+    status = db.Column(db.Integer, unique=False, nullable=False)
     date = db.Column(db.DateTime, default = datetime.utcnow)
  
     # repr method represents how one object of this datatable
@@ -51,11 +64,6 @@ def dashboard():
 # details page route
 @app.route('/detail', methods = ['POST', 'GET'])
 def detail():
-<<<<<<< HEAD
-    data = [{"status":True,"item":"chiken","validTime":5,"cat":"veg","weight":2},{"status":True,"item":"chiken","validTime":5,"cat":"veg","weight":2}]
-    # return render_template('detail.html', title = "details page")
-    return jsonify(data)
-=======
 
     if request.method == 'POST':
 
@@ -65,20 +73,46 @@ def detail():
         fcat = request.form['fcat']
         ftime = request.form['ftime']
 
-        todo = Todo(name = fname, task = ftask, cat = fcat ,note = fnote, shelf_life = random.randrange(2, 5), ctime = ftime)
+        # calculation for validity time
+        date_str1 = ftime
+
+        time_difference = calculate_time_difference(date_str1, datetime.utcnow())
+
+        # calculation for expiry time
+        shelf_life_sec = random.randrange(8, 30) * 3600
+        exp_time = shelf_life_sec - time_difference
+
+        if exp_time > 0:
+            status_num = 1
+        else:
+            status_num = 0
+
+        # converting the expiry time into string
+        exp_time = timedelta(seconds=exp_time)
+        exp_time = str(exp_time)
+        
+        # converting the validation time into string
+        time_difference = timedelta(seconds=time_difference)
+        time_difference = str(time_difference)
+
+        todo = Todo(name = fname, task = ftask, cat = fcat ,note = fnote, shelf_life = random.randrange(8, 30), ctime = ftime, validity = time_difference, expiry = exp_time, status = status_num)
         db.session.add(todo)
         db.session.commit()
 
 
     allTodo = Todo.query.all()
+    print(allTodo)
+
     if request.accept_mimetypes.best == 'application/json':
         todo_list = [{
             "id": item.id,
             "name": item.name,
             "task": item.task,
-            "creation time": item.ctime,
             "cat": item.cat,
             "shelf_life": item.shelf_life,
+            "validity": item.validity,
+            "expiry": item.expiry,
+            "status": item.status,
             "note": item.note,
             "date": item.date.strftime('%Y-%m-%d %H:%M:%S')
         } for item in allTodo]
@@ -93,7 +127,6 @@ def detail():
 
 
     return render_template('detail.html', title = "details page", allTodo = allTodo)
->>>>>>> 71d49d1349c787b83bf1c4ccdb51336212e69e57
 
 
 # SELL PAGE ROUTES
