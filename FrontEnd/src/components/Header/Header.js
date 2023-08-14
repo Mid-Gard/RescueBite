@@ -45,14 +45,14 @@ function Header({ title }) {
             <div className="nav-item">
               <Typography variant="h6" component="div">
                 <Link to="/Sell" className="nav-link">
-                  Sell
+                  Sold
                 </Link>
               </Typography>
             </div>
             <div className="nav-item">
               <Typography variant="h6" component="div">
                 <Link to="/Donate" className="nav-link">
-                  Donate
+                  Donated
                 </Link>
               </Typography>
             </div>

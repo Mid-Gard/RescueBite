@@ -14,6 +14,8 @@ import Menu from "@mui/material/Menu";
 import "./Details.css";
 import { Link } from "react-router-dom";
 
+
+
 function Detail({ title }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [Detail, setDetail] = useState([]);
@@ -21,6 +23,7 @@ function Detail({ title }) {
   useEffect(() => {
     const fetchDetail = async () => {
       const response = await fetch("http://127.0.0.1:8000/detail");
+      console.log(response);
       const data = await response.json();
       setDetail(data);
     };
@@ -35,26 +38,29 @@ function Detail({ title }) {
     setAnchorEl(null);
   };
 
+
   return (
     <div className="DetailHome">
       <div className="Detailcontainer">
         <div className="MainContent">
           <div className="DetailHeading">
             <p> Items in the Kitchen </p>
-          <div className="table-head">
-            <div className="Bus-name bus-element">Item Name</div>
-            <div className="Bus-phone bus-element">Valid Till (Hrs)</div>
-            <div className="Bus-phone bus-element">Catagory</div>
-            <div className="Bus-phone bus-element">Quantity</div>
-          </div>
           </div>
           <div className="Detail-container">
+            <div className="table-head">
+              <div className="Bus-name bus-element">Item Name</div>
+              <div className="Bus-phone bus-element">Created Before (Hrs)</div>
+              <div className="Bus-phone bus-element">Valid within (Hrs)</div>
+              <div className="Bus-phone bus-element">Catagory</div>
+              <div className="Bus-phone bus-element">Quantity (Kg)</div>
+            </div>
             {Detail.map((Bus) => (
               <div className="Bus-info">
                 <div className="Bus-name bus-element">{Bus.name}</div>
-                <div className="Bus-phone bus-element">{Bus.validTime}</div>
-                <div className="Bus-phone bus-element">{Bus.cat}</div>
-                <div className="Bus-phone bus-element">{Bus.weight}</div>
+                <div className="Bus-phone bus-element-detail">{Bus.validity}</div>
+                <div className="Bus-phone bus-element-detail">{Bus.expiry}</div>
+                <div className="Bus-phone bus-element-detail">{Bus.cat}</div>
+                <div className="Bus-phone bus-element-detail">{Bus.task}</div>
                 <Link to="/Sell">
                   <div className="Detail-btn">Sell</div>
                 </Link>

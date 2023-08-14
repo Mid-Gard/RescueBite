@@ -77,7 +77,7 @@
     background-color: rgb(0, 0, 0);
 }
 
-.Bus-info {
+.Bus-info-sell {
     width: 100%;
     display: flex;
     text-align: center;
@@ -91,13 +91,22 @@
     /* margin-left: 2vw; */
     width: auto;
     margin-inline: 2vw;
-    justify-content: space-evenly;
+    padding-left: 18em;
+    /* margin-left: 42px; */
+    justify-content: space-between;
 }
 
-.table-head{
+.sell-table-head{
     display: flex;
     font-size: smaller;
     justify-content: flex-start;
+    background: black;
+    padding-block: 0.9em;
+    padding-left: 13em;
+    padding-right: -8em;
+    margin-inline: 1em;
+    border-radius: 20px;
+    margin-bottom: 1em;
 }
 
 .Bus-name {

@@ -26,6 +26,50 @@
     width: auto;
 }
 
+.mapcontanor{
+    width: 75vw;
+    height: 90vh;
+}
+
+.homecontanor{
+    margin: 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    height: 90vh;
+    display: flex;
+}
+
+.sidebarr{
+    width: 22vw;
+    margin-left: 1.1em;
+    border-radius: 20px;
+    background-color: #8b6416ab;
+}
+
+.sidecontent{
+    margin: 2em;;
+}
+
+.sideHeading{
+    font-size: 2em;
+    color: white;
+}
+
+.sideelements{
+    background-color: antiquewhite;
+    padding: 1em;
+    margin-block: 1em;
+    border-radius: 10px;
+    font-weight: 700;
+}
+
+
+
+
+
+
+
 /* 
 .sidebar-background {
     background-color: rgb(66, 28, 100);

@@ -48,20 +48,19 @@ function Sell({ title }) {
       <div className="Sellcontainer">
         <div className="MainContent">
           <div className="SellHeading">
-            <p> Items in the Kitchen </p>
-              <div className="table-head">
+            <p> Food Sold Out </p>
+              <div className="sell-table-head">
                 <div className="Bus-name bus-element">Item Name</div>
-                <div className="Bus-phone bus-element">Valid Till (Hrs)</div>
                 <div className="Bus-phone bus-element">Catagory</div>
                 <div className="Bus-phone bus-element">Quantity</div>
               </div>
           </div>
           <div className="Sell-container">
             {Sell.map((Bus) => (
-              <div className="Bus-info">
-                <div className="Bus-name bus-element">{Bus.item}</div>
-                <div className="Bus-phone bus-element">{Bus.validTime}</div>
+              <div className="Bus-info-sell">
+                <div className="Bus-name bus-element">{Bus.name}</div>
                 <div className="Bus-phone bus-element">{Bus.cat}</div>
+                <div className="Bus-phone bus-element">{Bus.task}</div>
                 <div className="Bus-phone bus-element">{Bus.weight}</div>
               </div>
             ))}

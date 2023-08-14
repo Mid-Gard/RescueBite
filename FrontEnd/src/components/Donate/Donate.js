@@ -43,21 +43,19 @@ function Donate({ title }) {
       <div className="Donatecontainer">
         <div className="MainContent">
           <div className="DonateHeading">
-            <p> Items in the Kitchen </p>
-            <div className="table-head">
-              <div className="Bus-name bus-element">Item Name</div>
-              <div className="Bus-phone bus-element">Valid Till (Hrs)</div>
-              <div className="Bus-phone bus-element">Catagory</div>
-              <div className="Bus-phone bus-element">Quantity</div>
+            <p> Food Donated </p>
+            <div className="table-head-donate">
+              <div className="Bus-name bus-element-donate">Item Name</div>
+              <div className="Bus-phone bus-element-donate">Catagory</div>
+              <div className="Bus-phone bus-element-donate">Quantity</div>
             </div>
           </div>
           <div className="Donate-container">
             {Donate.map((Bus) => (
-              <div className="Bus-info">
-                <div className="Bus-name bus-element">{Bus.item}</div>
-                <div className="Bus-phone bus-element">{Bus.validTime}</div>
-                <div className="Bus-phone bus-element">{Bus.cat}</div>
-                <div className="Bus-phone bus-element">{Bus.weight}</div>
+              <div className="Bus-info-donate">
+                <div className="Bus-name bus-element-donate">{Bus.name}</div>
+                <div className="Bus-phone bus-element-donate">{Bus.cat}</div>
+                <div className="Bus-phone bus-element-donate">{Bus.task}</div>
               </div>
             ))}
           </div>

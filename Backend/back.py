@@ -4,8 +4,10 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timedelta
 import random
 
-# creating app instance
+from flask_cors import CORS  # Import CORS
+
 app = Flask(__name__)
+CORS(app)  # Add this line to enable CORS
 
 # adding configuration for using a sqlite database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
@@ -61,6 +63,24 @@ def dashboard():
     return render_template('dashboard.html', title = "dashboard page")
 
 
+
+@app.route('/login')
+def login():
+    form = loginform()
+    if form.validate_on_submit():
+        with app.app_context():
+            user = User.query.filter_by(email=form.email.data).first()
+            if user and check_password_hash(user.password, form.password.data):
+                # Successful login
+                session['user_id'] = user.id  # Store user's ID in session
+                flash('You have been logged in!', 'success')
+                return redirect(url_for('home'))  # Redirect to home page after login
+            else:
+                flash('Login failed. Please check your email and password.', 'danger')
+    return render_template("login.html", title='login', form=form)
+
+
+
 # details page route
 @app.route('/detail', methods = ['POST', 'GET'])
 def detail():
@@ -99,44 +119,26 @@ def detail():
         db.session.add(todo)
         db.session.commit()
 
-# for logic
+        return redirect(url_for('home'))
+
+
     allTodo = Todo.query.all()
-<<<<<<< HEAD
     print(allTodo)
 
-    if request.accept_mimetypes.best == 'application/json':
-        todo_list = [{
-            "id": item.id,
-            "name": item.name,
-            "task": item.task,
-            "cat": item.cat,
-            "shelf_life": item.shelf_life,
-            "validity": item.validity,
-            "expiry": item.expiry,
-            "status": item.status,
-            "note": item.note,
-            "date": item.date.strftime('%Y-%m-%d %H:%M:%S')
-        } for item in allTodo]
-        return jsonify(todo_list)
-=======
-    timepassed = datetime.utcnow() - item.ctime
-    validity = item.shelftime - timepassed
-
-
-
+    # if request.accept_mimetypes.best == 'application/json':
     todo_list = [{
         "id": item.id,
         "name": item.name,
-        "qty": item.task,
-        "creation time": item.ctime,
-        "validity" : validity,
+        "task": item.task,
         "cat": item.cat,
         "shelf_life": item.shelf_life,
+        "validity": item.validity,
+        "expiry": item.expiry,
+        "status": item.status,
         "note": item.note,
         "date": item.date.strftime('%Y-%m-%d %H:%M:%S')
     } for item in allTodo]
     return jsonify(todo_list)
->>>>>>> bbff0fbc1e76a9422594dce4ad5efefcbc8d3bbc
 
      # Check if the client accepts JSON response
     # if request.accept_mimetypes.best == 'application/json':
@@ -146,11 +148,7 @@ def detail():
     #     return jsonify(todo_list)
 
 
-<<<<<<< HEAD
-    return render_template('detail.html', title = "details page", allTodo = allTodo)
-=======
     # return render_template('detail.html', title = "details page", allTodo = allTodo)
->>>>>>> bbff0fbc1e76a9422594dce4ad5efefcbc8d3bbc
 
 
 # SELL PAGE ROUTES

@@ -5,16 +5,27 @@
 
 .details{
     color: rgb(26, 17, 17);
-    display: flex;
+    /* display: flex; */
     background-color: rgba(236, 213, 111, 0.753);
     width: 20vw;
-    height: 79vh;
+    height: 74vh;
     margin: 27px;
-    border-radius: 10px;
+    border-radius: 15px;
     flex-direction: column;
-    padding-left: 30px;
-    overflow: scroll;
-    overflow-x: auto;
+    overflow: overlay
+}
+
+.wastedetails{
+    color: rgb(26, 17, 17);
+    /* display: flex; */
+    background-color: rgba(236, 213, 111, 0.753);
+    width: 20vw;
+    height: 44vh;
+    margin: 27px;
+    border-radius: 15px;
+    margin-top: 2em;
+    flex-direction: column;
+    overflow: overlay;
 }
 
 .buttons{
@@ -29,7 +40,40 @@
     margin-top: 40vh;
     flex-wrap: nowrap;
     justify-content: space-between;
+}
 
+.morebtn{
+    background-color: azure;
+    padding: 1em;
+    border-radius: 16px;
+    font-weight: 700;
+    text-decoration: dashed;
+    margin-inline: 30px
+}
+
+.bttns{
+    position: absolute;
+    display: flex;
+    margin-top: 83vh;
+    margin-left: 1vw;
+    padding: 1em;
+}
+
+
+.Mainheading{
+    margin-right: 10vw;
+    margin-top: 2vh;
+    font-size: 4em;
+    text-align-last: center;
+    font-weight: 800;
+}
+
+.sidebarhead{
+    font-size: x-large;
+    text-align: -webkit-center;
+    margin-top: 1vh;
+    font-size: xx-large;
+    position: sticky;
 }
 
 .containerrr{
@@ -82,4 +126,48 @@ h3{
     padding: 5px;
     border-radius: 7px;
     color: aliceblue;
+}
+
+.dish-info {
+    font-size: 20px;
+    color: rgb(204, 237, 243);
+    background: #388b36;
+    border-radius: 10px;
+    margin-inline: 1vw;
+    margin-block-start: 3vh;
+    align-items: center;
+}
+
+.each-element {
+    padding-inline: 5vw;
+}
+
+.DashHead{
+    display: flex;
+    place-content: center;
+}
+
+p{
+    padding-inline: 1em
+}
+
+.dish-info-waste{
+    font-size: 20px;
+    color: rgb(204, 237, 243);
+    background: #cf3f13;
+    border-radius: 10px;
+    margin-inline: 1vw;
+    margin-block-start: 3vh;
+    align-items: center;
+}
+
+.sidebarhead-waste{
+    display: flex;
+    place-content: center;
+    margin-top: 10em;
+        font-size: x-large;
+    text-align: -webkit-center;
+    margin-top: 30vh;
+    font-size: xx-large;
+    position: sticky;
 }
