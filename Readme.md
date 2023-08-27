@@ -1,5 +1,5 @@
 
-# RescueBite: 
+# RescueBite
 
 ![RescueBite Logo](FrontEnd/public/logo.png) <!-- Replace with your logo image link -->
 
